@@ -1,5 +1,8 @@
-package com.mcp.mycareerplan.api;
+package com.mcp.mycareerplan.api.accounts;
 
+import com.mcp.mycareerplan.api.Log;
+import com.mcp.mycareerplan.api.MCPWebService;
+import com.mcp.mycareerplan.api.Result;
 import retrofit2.Response;
 
 import java.io.IOException;
@@ -13,23 +16,16 @@ public class Login {
         credentials = new Credentials(user,password);
     }
 
-    public Result authenticate() throws IOException {
+    public boolean authenticate() throws IOException {
         Log.d(LOG_TAG,"authenticate()");
         ILogin login = MCPWebService.getApi().create(ILogin.class);
 //        try {
             Response<Result> res = login.authenticate(credentials).execute();
             Log.d(LOG_TAG, String.valueOf(res.code()) );
-            if (res.code() == 200){
-                return res.body();
-            }
-            else{
-                return new Result(res.code());
-            }
+            return (res.code() == 200);
 //        } catch (IOException e) {
 //            Log.e(LOG_TAG, e.getMessage());
-//
-//            e.getStackTrace()
-//            return new Result(1);
+//            return false;
 //        }
     }
 }

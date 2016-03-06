@@ -5,9 +5,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MCPWebService {
     private static final String LOG_TAG = MCPWebService.class.getSimpleName();
-    public static String API_URL = "http://apimcp.azurewebsites.net/api";
-    public static String MOCK_API_URL2 = "https://www.mockable.io/a/#/space/demo3446965/rest/UAAAAAAAA";
-    public static String MOCK_API_URL = "https://j6i8kyxsxjaczcqxi.stoplight-proxy.io";
+//    public static String API_URL = "http://apimcp.azurewebsites.net/api/";
+    public static String API_URL = "http://mcpapi.azurewebsites.net/api/";
+//    public static String API_URL = "http://demo3446965.mockable.io/";
+//    public static String API_URL = "https://j6i8kyxsxjaczcqxi.stoplight-proxy.io";
 
     private static Retrofit retrofit;
 
@@ -22,5 +23,9 @@ public class MCPWebService {
     public static Retrofit getApi() {
         Log.d(LOG_TAG,"getApi()");
         return retrofit;
+    }
+
+    public static String getApiUrl(){
+        return API_URL;
     }
 }

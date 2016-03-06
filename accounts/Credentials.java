@@ -1,18 +1,18 @@
-package com.mcp.mycareerplan.api;
+package com.mcp.mycareerplan.api.accounts;
 
 public class Credentials{
-    private String clave;
-    private String usuario;
-    public Credentials(String usuario, String clave) {
-        this.usuario = usuario;
+    public String Usuario;
+    public String clave;
+    public Credentials(String Usuario, String clave) {
+        this.Usuario = Usuario;
         this.clave = clave;
     }
 
     public String getUsuario() {
-        return usuario;
+        return Usuario;
     }
     public void setUsuario(String usuario) {
-        this.usuario = usuario;
+        this.Usuario = usuario;
     }
     public String getClave() {
         return clave;
