@@ -14,6 +14,10 @@ public class User {
     protected Date FechaNacimiento;
     protected Integer IdEstatus;
 
+    public User(){
+
+    }
+
     public User(String usuario, Integer idTipoUsuario, String clave, String nombres, String apellidos, String correo, Date fechaNacimiento, Integer idEstatus) {
         Usuario = usuario;
         IdTipoUsuario = idTipoUsuario;

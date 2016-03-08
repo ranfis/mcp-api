@@ -21,7 +21,7 @@ public final class Main {
 //        ranfis.setIdEstatus(1);
 //        Boolean res = new Register(ranfis).registerUser();
 
-        Boolean res = Account.getUserList();
-        Log.d(LOG_TAG,res.toString());
+//        Boolean res = Account.getUserList();
+//        Log.d(LOG_TAG,res.toString());
     }
 }
