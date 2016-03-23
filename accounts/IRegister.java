@@ -1,5 +1,7 @@
 package com.mcp.mycareerplan.api.accounts;
 
+import com.mcp.mycareerplan.api.Result;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;
@@ -10,5 +12,5 @@ public interface IRegister {
             "Content-type: application/json"
     })
     @POST("Logon/RegistroUsuarios")
-    Call<Object> register(@Body User user);
+    Call<Result> register(@Body User user);
 }
