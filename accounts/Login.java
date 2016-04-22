@@ -51,6 +51,7 @@ public class Login extends AsyncTask<Void, Void, HttpResponse<String>> {
             Log.d("LOG _ TAG", req.getResponds().getDatos().replace("[", "").replace("]", ""));
 
             App.currentUser = convertUserToObject(req.getResponds().getDatos().replace("[","").replace("]","").toLowerCase());
+            App.currentUser.setFechanacimiento(App.currentUser.getFechanacimiento().substring(0,10));
             App.currentUser.setNombre(App.capitalize(App.currentUser.getNombre()));
             App.currentUser.setApellidos(App.capitalize(App.currentUser.getApellidos()));
             activity.onLoginSuccess();
@@ -85,14 +86,11 @@ public class Login extends AsyncTask<Void, Void, HttpResponse<String>> {
     protected HttpResponse<String> doInBackground(Void... v) {
         Log.d(LOG_TAG,"authenticate()");
         HttpResponse<String> response = null;
+        ObjectMapper mapper = new ObjectMapper();
         try {
             response = Unirest.post("http://apiunifacil.azurewebsites.net/api/Logon/Login")
                     .header("content-type", "application/json")
-                    .body("{\"Usuario\":\"" +
-                            credentials.getUsuario() +
-                            "\",\"clave\":\"" +
-                            credentials.getClave() +
-                            "\"}")
+                    .body(mapper.writeValueAsString(credentials))
                     .asString();
             Log.d(LOG_TAG, response.toString());
         } catch (Exception e) {
