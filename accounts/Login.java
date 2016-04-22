@@ -3,17 +3,20 @@ package com.mcp.mycareerplan.api.accounts;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+import com.mcp.mycareerplan.App;
 import com.mcp.mycareerplan.LoginActivity;
 import com.mcp.mycareerplan.R;
 import com.mcp.mycareerplan.api.Log;
-import com.mcp.mycareerplan.api.MCPWebService;
-import com.mcp.mycareerplan.api.Result;
-import retrofit2.Response;
+import com.mcp.mycareerplan.api.Request;
 
 import java.io.IOException;
-import java.net.URL;
 
-public class Login extends AsyncTask<Void, Void, Response<Result>> {
+public class Login extends AsyncTask<Void, Void, HttpResponse<String>> {
     private static final String LOG_TAG = Login.class.getSimpleName();
     private Credentials credentials;
     private ProgressDialog dialog;
@@ -26,6 +29,8 @@ public class Login extends AsyncTask<Void, Void, Response<Result>> {
         this.activity = activity;
     }
 
+
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -36,13 +41,18 @@ public class Login extends AsyncTask<Void, Void, Response<Result>> {
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
-        Log.d(LOG_TAG,"onProgressUpdate:" + values);
+        Log.d(LOG_TAG, "onProgressUpdate:" + values);
     }
 
     @Override
-    protected void onPostExecute(Response<Result> resultResponse) {
-        // TODO: Make it work for correct API
-        if (resultResponse.body().getCodigo()==400) {
+    protected void onPostExecute(HttpResponse<String> resultResponse) {
+        Request req = App.convertToObject(resultResponse.getBody());
+        if (req.getResponds().getCodigo()==200) {
+            Log.d("LOG _ TAG", req.getResponds().getDatos().replace("[", "").replace("]", ""));
+
+            App.currentUser = convertUserToObject(req.getResponds().getDatos().replace("[","").replace("]","").toLowerCase());
+            App.currentUser.setNombre(App.capitalize(App.currentUser.getNombre()));
+            App.currentUser.setApellidos(App.capitalize(App.currentUser.getApellidos()));
             activity.onLoginSuccess();
             dialog.dismiss();
             activity.finish();
@@ -55,16 +65,39 @@ public class Login extends AsyncTask<Void, Void, Response<Result>> {
         }
     }
 
-    protected Response<Result> doInBackground(Void... v) {
+
+    public static User convertUserToObject(String content) {
+        ObjectMapper mapper = new ObjectMapper();
+        User response = null;
+        try{
+            response = mapper.readValue(content, User.class);
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+
+    protected HttpResponse<String> doInBackground(Void... v) {
         Log.d(LOG_TAG,"authenticate()");
-        ILogin login = MCPWebService.getApi().create(ILogin.class);
-        Response<Result> res = null;
+        HttpResponse<String> response = null;
         try {
-            res = login.authenticate(credentials).execute();
-            Log.d(LOG_TAG, res.body().toString());
+            response = Unirest.post("http://apiunifacil.azurewebsites.net/api/Logon/Login")
+                    .header("content-type", "application/json")
+                    .body("{\"Usuario\":\"" +
+                            credentials.getUsuario() +
+                            "\",\"clave\":\"" +
+                            credentials.getClave() +
+                            "\"}")
+                    .asString();
+            Log.d(LOG_TAG, response.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return res;
+        return response;
     }
 }

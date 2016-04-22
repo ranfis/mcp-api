@@ -3,18 +3,22 @@ package com.mcp.mycareerplan.api.accounts;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+import com.mcp.mycareerplan.App;
 import com.mcp.mycareerplan.R;
 import com.mcp.mycareerplan.SignUpActivity;
 import com.mcp.mycareerplan.api.Log;
-import com.mcp.mycareerplan.api.MCPWebService;
-import com.mcp.mycareerplan.api.Result;
+import com.mcp.mycareerplan.api.Request;
+
+import java.io.IOException;
 
 import retrofit2.Response;
 
-import java.io.IOException;
-import java.net.URL;
-
-public class Register extends AsyncTask<Void, Void, Response<Result>> {
+public class Register extends AsyncTask<Void, Void, HttpResponse<String>> {
     private static final String LOG_TAG = Register.class.getSimpleName();
     private User user;
     private ProgressDialog dialog;
@@ -22,6 +26,7 @@ public class Register extends AsyncTask<Void, Void, Response<Result>> {
 
     public Register(User user, SignUpActivity activity) {
         this.user = user;
+        dialog = new ProgressDialog(activity);
         this.activity = activity;
     }
 
@@ -32,25 +37,44 @@ public class Register extends AsyncTask<Void, Void, Response<Result>> {
         dialog.show();
     }
 
-    protected Response<Result> doInBackground(Void... v) {
+    protected HttpResponse<String> doInBackground(Void... v) {
         Log.d(LOG_TAG, "registerUser()");
-        IRegister register = MCPWebService.getApi().create(IRegister.class);
-        Response<Result> res = null;
+        HttpResponse<String> res = null;
         try {
-            res = register.register(user).execute();
-        } catch (IOException e) {
+             res = Unirest.post("http://apiunifacil.azurewebsites.net/api/Logon/RegistroUsuarios")
+                    .header("content-type", "application/json")
+                    .body("{\"IdTipoUsuario\":" +
+                            1 +
+                            ",\"Usuario\":\"" +
+                            user.getUsuario() +
+                            "\",\"Clave\":\"" +
+                            user.getClave() +
+                            "\",\"Nombres\":\"" +
+                            user.getNombre() +
+                            "\",\"Apellidos\":\"" +
+                            user.getApellidos() +
+                            "\",\"Correo\":\"" +
+                            user.getCorreo() +
+                            "\",\"FechaNacimiento\":\"" +
+                            user.getFechanacimiento() +
+                            "\",\"IdEstatus\":" +
+                            user.getIdestatus() +
+                            "}")
+                    .asString();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.d(LOG_TAG, res.toString());
+
         return res;
     }
 
     @Override
-    protected void onPostExecute(Response<Result> resultResponse) {
-        // TODO: Make it work for correct API
-        if (resultResponse.body().getCodigo()==400) {
-            dialog.dismiss();
+    protected void onPostExecute(HttpResponse<String> resultResponse) {
+        Request req = App.convertToObject(resultResponse.getBody());
+        if (req.getResponds().getCodigo()==200) {
             activity.onSignupSuccess();
+            dialog.dismiss();
+            activity.finish();
         } else {
             if ((dialog != null) && dialog.isShowing()) {
                 dialog.dismiss();
@@ -59,4 +83,6 @@ public class Register extends AsyncTask<Void, Void, Response<Result>> {
             activity.onSignupFailed();
         }
     }
+
+
 }

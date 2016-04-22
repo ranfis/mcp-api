@@ -1,95 +1,81 @@
 package com.mcp.mycareerplan.api.accounts;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.util.Date;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
     private static final String LOG_TAG = User.class.getSimpleName();
-    protected Integer IdTipoUsuario;
-    protected String Usuario;
-    protected String Clave;
-    protected String Nombres;
-    protected String Apellidos;
-    protected String Correo;
-    protected Date FechaNacimiento;
-    protected Integer IdEstatus;
-
-    public User(){
-
-    }
-
-    public User(String usuario, Integer idTipoUsuario, String clave, String nombres, String apellidos, String correo, Date fechaNacimiento, Integer idEstatus) {
-        Usuario = usuario;
-        IdTipoUsuario = idTipoUsuario;
-        Clave = clave;
-        Nombres = nombres;
-        Apellidos = apellidos;
-        Correo = correo;
-        FechaNacimiento = fechaNacimiento;
-        IdEstatus = idEstatus;
-    }
-
-    public Integer getIdTipoUsuario() {
-        return IdTipoUsuario;
-    }
-
-    public void setIdTipoUsuario(Integer idTipoUsuario) {
-        IdTipoUsuario = idTipoUsuario;
-    }
-
-    public String getUsuario() {
-        return Usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        Usuario = usuario;
-    }
+    private String nombre;
+    private String apellidos;
+    private String correo;
+    private String fechanacimiento;
+    private Integer idestatus;
+    private String usuario;
+    private String token;
+    private String clave;
 
     public String getClave() {
-        return Clave;
+        return clave;
     }
 
     public void setClave(String clave) {
-        Clave = clave;
+        this.clave = clave;
     }
 
-    public String getNombres() {
-        return Nombres;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombres(String nombres) {
-        Nombres = nombres;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getApellidos() {
-        return Apellidos;
+        return apellidos;
     }
 
     public void setApellidos(String apellidos) {
-        Apellidos = apellidos;
+        this.apellidos = apellidos;
     }
 
     public String getCorreo() {
-        return Correo;
+        return correo;
     }
 
     public void setCorreo(String correo) {
-        Correo = correo;
+        this.correo = correo;
     }
 
-    public Date getFechaNacimiento() {
-        return FechaNacimiento;
+    public String getFechanacimiento() {
+        return fechanacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        FechaNacimiento = fechaNacimiento;
+    public void setFechanacimiento(String fechanacimiento) {
+        this.fechanacimiento = fechanacimiento;
     }
 
-    public Integer getIdEstatus() {
-        return IdEstatus;
+    public Integer getIdestatus() {
+        return idestatus;
     }
 
-    public void setIdEstatus(Integer idEstatus) {
-        IdEstatus = idEstatus;
+    public void setIdestatus(Integer idestatus) {
+        this.idestatus = idestatus;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
