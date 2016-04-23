@@ -40,26 +40,11 @@ public class Register extends AsyncTask<Void, Void, HttpResponse<String>> {
     protected HttpResponse<String> doInBackground(Void... v) {
         Log.d(LOG_TAG, "registerUser()");
         HttpResponse<String> res = null;
+        ObjectMapper mapper = new ObjectMapper();
         try {
              res = Unirest.post("http://apiunifacil.azurewebsites.net/api/Logon/RegistroUsuarios")
                     .header("content-type", "application/json")
-                    .body("{\"IdTipoUsuario\":" +
-                            1 +
-                            ",\"Usuario\":\"" +
-                            user.getUsuario() +
-                            "\",\"Clave\":\"" +
-                            user.getClave() +
-                            "\",\"Nombres\":\"" +
-                            user.getNombre() +
-                            "\",\"Apellidos\":\"" +
-                            user.getApellidos() +
-                            "\",\"Correo\":\"" +
-                            user.getCorreo() +
-                            "\",\"FechaNacimiento\":\"" +
-                            user.getFechanacimiento() +
-                            "\",\"IdEstatus\":" +
-                            user.getIdestatus() +
-                            "}")
+                    .body(mapper.writeValueAsString(user))
                     .asString();
         } catch (Exception e) {
             e.printStackTrace();

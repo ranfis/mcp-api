@@ -1,81 +1,200 @@
 package com.mcp.mycareerplan.api.accounts;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+import java.util.Map;
+
+import java.util.HashMap;
+import java.util.Map;
 public class User {
-    private static final String LOG_TAG = User.class.getSimpleName();
-    private String nombre;
-    private String apellidos;
-    private String correo;
-    private String fechanacimiento;
-    private Integer idestatus;
-    private String usuario;
-    private String token;
-    private String clave;
 
-    public String getClave() {
-        return clave;
+    private Integer IdTipoUsuario;
+    private String Usuario;
+    private String Clave;
+    private String url;
+    private Object imagen;
+    private String Nombres;
+    private String Apellidos;
+    private String Correo;
+    private String FechaNacimiento;
+    private Integer IdEstatus;
+    private Integer IdPais;
+    private String Sexo;
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    /**
+     * @return The IdTipoUsuario
+     */
+    public Integer getIdTipoUsuario() {
+        return IdTipoUsuario;
     }
 
-    public void setClave(String clave) {
-        this.clave = clave;
+    /**
+     * @param IdTipoUsuario The IdTipoUsuario
+     */
+    public void setIdTipoUsuario(Integer IdTipoUsuario) {
+        this.IdTipoUsuario = IdTipoUsuario;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getFechanacimiento() {
-        return fechanacimiento;
-    }
-
-    public void setFechanacimiento(String fechanacimiento) {
-        this.fechanacimiento = fechanacimiento;
-    }
-
-    public Integer getIdestatus() {
-        return idestatus;
-    }
-
-    public void setIdestatus(Integer idestatus) {
-        this.idestatus = idestatus;
-    }
-
+    /**
+     * @return The Usuario
+     */
     public String getUsuario() {
-        return usuario;
+        return Usuario;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    /**
+     * @param Usuario The Usuario
+     */
+    public void setUsuario(String Usuario) {
+        this.Usuario = Usuario;
     }
 
-    public String getToken() {
-        return token;
+    /**
+     * @return The Clave
+     */
+    public String getClave() {
+        return Clave;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    /**
+     * @param Clave The Clave
+     */
+    public void setClave(String Clave) {
+        this.Clave = Clave;
     }
+
+    /**
+     * @return The url
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * @param url The url
+     */
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    /**
+     * @return The imagen
+     */
+    public Object getImagen() {
+        return imagen;
+    }
+
+    /**
+     * @param imagen The imagen
+     */
+    public void setImagen(Object imagen) {
+        this.imagen = imagen;
+    }
+
+    /**
+     * @return The Nombres
+     */
+    public String getNombres() {
+        return Nombres;
+    }
+
+    /**
+     * @param Nombres The Nombres
+     */
+    public void setNombres(String Nombres) {
+        this.Nombres = Nombres;
+    }
+
+    /**
+     * @return The Apellidos
+     */
+    public String getApellidos() {
+        return Apellidos;
+    }
+
+    /**
+     * @param Apellidos The Apellidos
+     */
+    public void setApellidos(String Apellidos) {
+        this.Apellidos = Apellidos;
+    }
+
+    /**
+     * @return The Correo
+     */
+    public String getCorreo() {
+        return Correo;
+    }
+
+    /**
+     * @param Correo The Correo
+     */
+    public void setCorreo(String Correo) {
+        this.Correo = Correo;
+    }
+
+    /**
+     * @return The FechaNacimiento
+     */
+    public String getFechaNacimiento() {
+        return FechaNacimiento;
+    }
+
+    /**
+     * @param FechaNacimiento The FechaNacimiento
+     */
+    public void setFechaNacimiento(String FechaNacimiento) {
+        this.FechaNacimiento = FechaNacimiento;
+    }
+
+    /**
+     * @return The IdEstatus
+     */
+    public Integer getIdEstatus() {
+        return IdEstatus;
+    }
+
+    /**
+     * @param IdEstatus The IdEstatus
+     */
+    public void setIdEstatus(Integer IdEstatus) {
+        this.IdEstatus = IdEstatus;
+    }
+
+    /**
+     * @return The IdPais
+     */
+    public Integer getIdPais() {
+        return IdPais;
+    }
+
+    /**
+     * @param IdPais The IdPais
+     */
+    public void setIdPais(Integer IdPais) {
+        this.IdPais = IdPais;
+    }
+
+    /**
+     * @return The Sexo
+     */
+    public String getSexo() {
+        return Sexo;
+    }
+
+    /**
+     * @param Sexo The Sexo
+     */
+    public void setSexo(String Sexo) {
+        this.Sexo = Sexo;
+    }
+
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
+
 }

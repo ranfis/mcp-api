@@ -50,13 +50,14 @@ public class Login extends AsyncTask<Void, Void, HttpResponse<String>> {
         if (req.getResponds().getCodigo()==200) {
             Log.d("LOG _ TAG", req.getResponds().getDatos().replace("[", "").replace("]", ""));
 
-            App.currentUser = convertUserToObject(req.getResponds().getDatos().replace("[","").replace("]","").toLowerCase());
-            App.currentUser.setFechanacimiento(App.currentUser.getFechanacimiento().substring(0,10));
+            App.currentUser = convertUserToObject(req.getResponds().getDatos().replace("[","").replace("]",""));
+            App.currentUser.setFechanacimiento(App.currentUser.getFechanacimiento().substring(0, 10));
             App.currentUser.setNombre(App.capitalize(App.currentUser.getNombre()));
             App.currentUser.setApellidos(App.capitalize(App.currentUser.getApellidos()));
             activity.onLoginSuccess();
             dialog.dismiss();
             activity.finish();
+
         } else {
             if ((dialog != null) && dialog.isShowing()) {
                 dialog.dismiss();
@@ -67,11 +68,11 @@ public class Login extends AsyncTask<Void, Void, HttpResponse<String>> {
     }
 
 
-    public static User convertUserToObject(String content) {
+    public static Userx convertUserToObject(String content) {
         ObjectMapper mapper = new ObjectMapper();
-        User response = null;
+        Userx response = null;
         try{
-            response = mapper.readValue(content, User.class);
+            response = mapper.readValue(content, Userx.class);
         } catch (JsonParseException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
