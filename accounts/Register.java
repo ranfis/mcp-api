@@ -2,21 +2,15 @@ package com.mcp.mycareerplan.api.accounts;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.util.Log;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mcp.mycareerplan.App;
 import com.mcp.mycareerplan.R;
 import com.mcp.mycareerplan.SignUpActivity;
-import com.mcp.mycareerplan.api.Log;
 import com.mcp.mycareerplan.api.Request;
-
-import java.io.IOException;
-
-import retrofit2.Response;
 
 public class Register extends AsyncTask<Void, Void, HttpResponse<String>> {
     private static final String LOG_TAG = Register.class.getSimpleName();
