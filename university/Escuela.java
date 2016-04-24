@@ -1,105 +1,115 @@
 
 package com.mcp.mycareerplan.api.university;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Escuela {
 
-    private Integer IdEscuela;
-    private String NombreEscuela;
-    private String Director;
-    private String Telefono;
-    private List<Object> Carreras = new ArrayList<Object>();
+    private Integer idEscuela;
+    private String nombreEscuela;
+    private String director;
+    private String telefono;
+    private List<Carrera> carreras = new ArrayList<Carrera>();
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
      * @return
-     *     The IdEscuela
+     *     The idEscuela
      */
     public Integer getIdEscuela() {
-        return IdEscuela;
+        return idEscuela;
     }
 
     /**
      * 
-     * @param IdEscuela
-     *     The IdEscuela
+     * @param idEscuela
+     *     The idEscuela
      */
-    public void setIdEscuela(Integer IdEscuela) {
-        this.IdEscuela = IdEscuela;
+    public void setIdEscuela(Integer idEscuela) {
+        this.idEscuela = idEscuela;
     }
 
     /**
      * 
      * @return
-     *     The NombreEscuela
+     *     The nombreEscuela
      */
     public String getNombreEscuela() {
-        return NombreEscuela;
+        return nombreEscuela;
     }
 
     /**
      * 
-     * @param NombreEscuela
-     *     The NombreEscuela
+     * @param nombreEscuela
+     *     The nombreEscuela
      */
-    public void setNombreEscuela(String NombreEscuela) {
-        this.NombreEscuela = NombreEscuela;
+    public void setNombreEscuela(String nombreEscuela) {
+        this.nombreEscuela = nombreEscuela;
     }
 
     /**
      * 
      * @return
-     *     The Director
+     *     The director
      */
     public String getDirector() {
-        return Director;
+        return director;
     }
 
     /**
      * 
-     * @param Director
-     *     The Director
+     * @param director
+     *     The director
      */
-    public void setDirector(String Director) {
-        this.Director = Director;
+    public void setDirector(String director) {
+        this.director = director;
     }
 
     /**
      * 
      * @return
-     *     The Telefono
+     *     The telefono
      */
     public String getTelefono() {
-        return Telefono;
+        return telefono;
     }
 
     /**
      * 
-     * @param Telefono
-     *     The Telefono
+     * @param telefono
+     *     The telefono
      */
-    public void setTelefono(String Telefono) {
-        this.Telefono = Telefono;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     /**
      * 
      * @return
-     *     The Carreras
+     *     The carreras
      */
-    public List<Object> getCarreras() {
-        return Carreras;
+    public List<Carrera> getCarreras() {
+        return carreras;
     }
 
     /**
      * 
-     * @param Carreras
-     *     The Carreras
+     * @param carreras
+     *     The carreras
      */
-    public void setCarreras(List<Object> Carreras) {
-        this.Carreras = Carreras;
+    public void setCarreras(List<Carrera> carreras) {
+        this.carreras = carreras;
+    }
+
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
     }
 
 }

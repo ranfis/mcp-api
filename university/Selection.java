@@ -1,45 +1,45 @@
-package com.mcp.mycareerplan.api.accounts;
+package com.mcp.mycareerplan.api.university;
 
+import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mcp.mycareerplan.App;
-import com.mcp.mycareerplan.LoginActivity;
 import com.mcp.mycareerplan.R;
 import com.mcp.mycareerplan.api.Request;
 import com.mcp.mycareerplan.api.WS;
+import com.mcp.mycareerplan.api.accounts.Userx;
+import com.mcp.mycareerplan.fragments.FgmSelectionHome;
 
 import java.io.IOException;
+import java.util.List;
 
 
-public class Login extends AsyncTask<Void, Void, HttpResponse<String>> {
-    private static final String LOG_TAG = Login.class.getSimpleName();
-    private Credentials credentials;
-    private String apiToken;
+public class Selection extends AsyncTask<Void, Void, HttpResponse<String>> {
+    private static final String LOG_TAG = Selection.class.getSimpleName();
     private ProgressDialog dialog;
-    private LoginActivity activity;
+    private Activity activity;
+    private List<Universidad> listaUniversidades;
+    FgmSelectionHome fmgSelectionHome;
 
 
-    public Login(String user, String password, LoginActivity activity) {
-        Log.d(LOG_TAG, "Login()");
-        credentials = new Credentials(user, password);
+    public Selection(Activity activity) {
+        Log.d(LOG_TAG, "Selection");
         dialog = new ProgressDialog(activity);
         dialog.setCanceledOnTouchOutside(false);
         this.activity = activity;
     }
 
-
-    public Login(String token, LoginActivity activity) {
-        Log.d(LOG_TAG, "Login()");
-        dialog = new ProgressDialog(activity);
-        credentials = new Credentials(token);
-        this.activity = activity;
+    public List<Universidad> getUniversidades() {
+        return this.listaUniversidades;
     }
 
 
@@ -63,37 +63,28 @@ public class Login extends AsyncTask<Void, Void, HttpResponse<String>> {
     @Override
     protected void onPostExecute(HttpResponse<String> resultResponse) {
         Log.d(LOG_TAG, "onPostExecute()");
-        //TODO: check for errors
         try {
-            Request req = App.convertToObject(resultResponse.getBody());
-            if (req.getResponds().getCodigo() == 200) {
-                Log.d(LOG_TAG, req.getResponds().getDatos().replace("[", "").replace("]", ""));
-                App.currentUser = convertUserToObject(req.getResponds().getDatos().replace("[", "").replace("]", ""));
-                App.currentUser.setFechanacimiento(App.currentUser.getFechanacimiento().substring(0, 10));
-                App.currentUser.setNombre(App.capitalize(App.currentUser.getNombre()));
-                App.currentUser.setApellidos(App.capitalize(App.currentUser.getApellidos()));
-                activity.onLoginSuccess();
+            listaUniversidades = convertIntoClass(resultResponse.getBody());
+            FragmentTransaction frgTransaction = activity.getFragmentManager().beginTransaction();
+            fmgSelectionHome = FgmSelectionHome.newInstance(listaUniversidades);
+            frgTransaction.addToBackStack("Selection University");
+            frgTransaction.add(R.id.selectionHome, fmgSelectionHome);
+            frgTransaction.commit();
+            if ((dialog != null) && dialog.isShowing()) {
                 dialog.dismiss();
-                activity.finish();
-            } else {
-                if ((dialog != null) && dialog.isShowing()) {
-                    dialog.dismiss();
-                    dialog = null;
-                }
-                activity.onLoginFailed();
+                dialog = null;
             }
         } catch (Exception ex) {
-            Log.e(LOG_TAG, "Algo paso :s");
+            Log.e(LOG_TAG, "Algo malo paso");
         }
     }
 
-
-    public static Userx convertUserToObject(String content) {
+    public static List<Universidad> convertIntoClass(String content) {
         Log.d(LOG_TAG, "convertUserToObject():"+content);
         ObjectMapper mapper = new ObjectMapper();
-        Userx response = null;
+        List<Universidad> response = null;
         try {
-            response = mapper.readValue(content, Userx.class);
+            response = mapper.readValue(content, new TypeReference<List<Universidad>>() {});
         } catch (JsonParseException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
@@ -108,11 +99,8 @@ public class Login extends AsyncTask<Void, Void, HttpResponse<String>> {
     protected HttpResponse<String> doInBackground(Void... v) {
         Log.d(LOG_TAG, "doInBackground()");
         HttpResponse<String> response = null;
-        ObjectMapper mapper = new ObjectMapper();
         try {
-            response = Unirest.post(WS.buildUrl("/Logon/Login"))
-                    .header("content-type", "application/json")
-                    .body(mapper.writeValueAsString(credentials))
+            response = Unirest.get(WS.buildUrl("/Universidades"))
                     .asString();
             Log.d(LOG_TAG, "doInBackground()/response/"+response.toString());
         } catch (Exception e) {
