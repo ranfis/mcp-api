@@ -11,6 +11,7 @@ import com.mcp.mycareerplan.App;
 import com.mcp.mycareerplan.R;
 import com.mcp.mycareerplan.SignUpActivity;
 import com.mcp.mycareerplan.api.Request;
+import com.mcp.mycareerplan.api.WS;
 
 public class Register extends AsyncTask<Void, Void, HttpResponse<String>> {
     private static final String LOG_TAG = Register.class.getSimpleName();
@@ -37,7 +38,7 @@ public class Register extends AsyncTask<Void, Void, HttpResponse<String>> {
         HttpResponse<String> res = null;
         ObjectMapper mapper = new ObjectMapper();
         try {
-             res = Unirest.post("http://apiunifacil.azurewebsites.net/api/Logon/RegistroUsuarios")
+             res = Unirest.post(WS.buildUrl("/Logon/RegistroUsuarios"))
                     .header("content-type", "application/json")
                     .body(mapper.writeValueAsString(user))
                     .asString();
