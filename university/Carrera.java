@@ -2,18 +2,15 @@
 package com.mcp.mycareerplan.api.university;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Carrera {
 
     private Integer idCarrera;
     private String nombreCarrera;
     private String descripcionCarrera;
-    private Object idEstatus;
-    private List<Object> pensums = new ArrayList<Object>();
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Integer idEstatus;
+    private List<Pensum> pensums = new ArrayList<Pensum>();
 
     /**
      * 
@@ -74,7 +71,7 @@ public class Carrera {
      * @return
      *     The idEstatus
      */
-    public Object getIdEstatus() {
+    public Integer getIdEstatus() {
         return idEstatus;
     }
 
@@ -83,7 +80,7 @@ public class Carrera {
      * @param idEstatus
      *     The idEstatus
      */
-    public void setIdEstatus(Object idEstatus) {
+    public void setIdEstatus(Integer idEstatus) {
         this.idEstatus = idEstatus;
     }
 
@@ -92,7 +89,7 @@ public class Carrera {
      * @return
      *     The pensums
      */
-    public List<Object> getPensums() {
+    public List<Pensum> getPensums() {
         return pensums;
     }
 
@@ -101,16 +98,8 @@ public class Carrera {
      * @param pensums
      *     The pensums
      */
-    public void setPensums(List<Object> pensums) {
+    public void setPensums(List<Pensum> pensums) {
         this.pensums = pensums;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

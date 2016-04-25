@@ -1,14 +1,11 @@
 
 package com.mcp.mycareerplan.api.university;
 
-import com.mcp.mycareerplan.models.Model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class Universidad extends Model {
+public class Universidad {
 
     private Integer idUniversidad;
     private String descripcion;
@@ -19,7 +16,6 @@ public class Universidad extends Model {
     private Integer idEstatus;
     private String nombre;
     private List<Escuela> escuelas = new ArrayList<Escuela>();
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
@@ -181,14 +177,6 @@ public class Universidad extends Model {
      */
     public void setEscuelas(List<Escuela> escuelas) {
         this.escuelas = escuelas;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

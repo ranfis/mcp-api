@@ -79,7 +79,7 @@ public class Selection extends AsyncTask<Void, Void, HttpResponse<String>> {
         }
     }
 
-    public static List<Universidad> convertIntoClass(String content) {
+    public List<Universidad> convertIntoClass(String content) {
         Log.d(LOG_TAG, "convertUserToObject():"+content);
         ObjectMapper mapper = new ObjectMapper();
         List<Universidad> response = null;
