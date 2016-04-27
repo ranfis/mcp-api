@@ -1,12 +1,24 @@
 
 package com.mcp.mycareerplan.api.university;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class PensumAsignatura {
 
     private String nombreasignatura;
     private Integer idAsignatura;
     private Object descripcion;
     private String codigo;
+    @JsonIgnore
+    private String isDigit;
+
+    public String getIsDigit() {
+        return isDigit;
+    }
+
+    public void setIsDigit(String isDigit) {
+        this.isDigit = isDigit;
+    }
 
     /**
      * 
