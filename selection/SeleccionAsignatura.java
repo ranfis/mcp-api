@@ -1,6 +1,8 @@
 
 package com.mcp.mycareerplan.api.selection;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class SeleccionAsignatura {
      * @return
      *     The Usuario
      */
+    @JsonProperty("Usuario")
     public String getUsuario() {
         return Usuario;
     }
@@ -36,6 +39,7 @@ public class SeleccionAsignatura {
      * @return
      *     The IdUniversidad
      */
+    @JsonProperty("IdUniversidad")
     public Integer getIdUniversidad() {
         return IdUniversidad;
     }
@@ -54,6 +58,7 @@ public class SeleccionAsignatura {
      * @return
      *     The IdCarrera
      */
+    @JsonProperty("IdCarrera")
     public Integer getIdCarrera() {
         return IdCarrera;
     }
@@ -72,6 +77,7 @@ public class SeleccionAsignatura {
      * @return
      *     The IdPensum
      */
+    @JsonProperty("IdPensum")
     public Integer getIdPensum() {
         return IdPensum;
     }
@@ -90,6 +96,7 @@ public class SeleccionAsignatura {
      * @return
      *     The IdRegistroEstudiante
      */
+    @JsonProperty("IdRegistroEstudiante")
     public Integer getIdRegistroEstudiante() {
         return IdRegistroEstudiante;
     }
@@ -108,6 +115,7 @@ public class SeleccionAsignatura {
      * @return
      *     The AsignaturasEstudiantes
      */
+    @JsonProperty("AsignaturasEstudiantes")
     public List<AsignaturasEstudiante> getAsignaturasEstudiantes() {
         return AsignaturasEstudiantes;
     }

@@ -1,6 +1,8 @@
 
 package com.mcp.mycareerplan.api.selection;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AsignaturasEstudiante {
 
     private Integer IdAsignaturaEstudiante;
@@ -14,6 +16,7 @@ public class AsignaturasEstudiante {
      * @return
      *     The IdAsignaturaEstudiante
      */
+    @JsonProperty("IdAsignaturaEstudiante")
     public Integer getIdAsignaturaEstudiante() {
         return IdAsignaturaEstudiante;
     }
@@ -32,6 +35,7 @@ public class AsignaturasEstudiante {
      * @return
      *     The IdPensum
      */
+    @JsonProperty("IdPensum")
     public Integer getIdPensum() {
         return IdPensum;
     }
@@ -50,6 +54,7 @@ public class AsignaturasEstudiante {
      * @return
      *     The IdAsignatura
      */
+    @JsonProperty("IdAsignatura")
     public Integer getIdAsignatura() {
         return IdAsignatura;
     }
@@ -68,6 +73,7 @@ public class AsignaturasEstudiante {
      * @return
      *     The Calificacion
      */
+    @JsonProperty("Calificacion")
     public Integer getCalificacion() {
         return Calificacion;
     }
@@ -86,6 +92,7 @@ public class AsignaturasEstudiante {
      * @return
      *     The IdEstadoMateria
      */
+    @JsonProperty("IdEstadoMateria")
     public Integer getIdEstadoMateria() {
         return IdEstadoMateria;
     }

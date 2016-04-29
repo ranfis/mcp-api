@@ -46,6 +46,7 @@ public class RegisterSubject extends AsyncTask<Void, Void, HttpResponse<String>>
                     .body(mapper.writeValueAsString(seleccionAsignatura))
                     .asString();
 
+
             Log.d("REQUEST: ", mapper.writeValueAsString(seleccionAsignatura));
         } catch (Exception e) {
             e.printStackTrace();
