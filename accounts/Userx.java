@@ -8,6 +8,7 @@ import java.util.HashMap;
 public class Userx {
 
     private String nombre;
+    private String matricula;
     private String apellidos;
     private String correo;
     private String fechanacimiento;
@@ -32,6 +33,20 @@ public class Userx {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    /**
+     * @return The matricula
+     */
+    public String getMatricula() {
+        return matricula;
+    }
+
+    /**
+     * @param matricula The matricula
+     */
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
     }
 
     /**
@@ -158,6 +173,13 @@ public class Userx {
      */
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    /**
+     * @return The nombre
+     */
+    public String getNombreCompleto() {
+        return nombre +" "+ apellidos;
     }
 
     /**
