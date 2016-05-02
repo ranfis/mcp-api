@@ -5,8 +5,14 @@ package com.mcp.mycareerplan.api.semesters;
  */
 public class Materia {
 
+
     private String nombre;
     private String codigo;
+
+    public Materia(String codigo,String nombre) {
+        this.nombre = nombre;
+        this.codigo = codigo;
+    }
 
     /**
      *
@@ -42,6 +48,15 @@ public class Materia {
      */
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    /**
+     *
+     * @return
+     * The codigo
+     */
+    public String getNombreLargo() {
+        return codigo+" "+nombre;
     }
 
 }
