@@ -62,20 +62,13 @@ public class RegisterSubject extends AsyncTask<Void, Void, HttpResponse<String>>
             dialog.dismiss();
             activity.finish();
             //SUCCESS
-
-            activity.runOnUiThread(new Runnable() {
-                public void run() {
-                    Intent intent = new Intent(activity, DashboardActivity.class);
-                    activity.startActivity(intent);
-                }
-            });
-
+            activity.onSuccess();
         } else {
             if ((dialog != null) && dialog.isShowing()) {
                 dialog.dismiss();
                 dialog = null;
             }
-        //FAILED
+            //FAILED
         }
     }
 
