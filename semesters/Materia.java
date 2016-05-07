@@ -5,10 +5,11 @@ package com.mcp.mycareerplan.api.semesters;
  */
 public class Materia {
 
+
     private String nombre;
     private String codigo;
 
-    public Materia(String codigo, String nombre) {
+    public Materia(String codigo,String nombre) {
         this.nombre = nombre;
         this.codigo = codigo;
     }
