@@ -1,8 +1,9 @@
 
 package com.mcp.mycareerplan.api.selection;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AsignaturasEstudiante {
 
     private Integer IdAsignaturaEstudiante;

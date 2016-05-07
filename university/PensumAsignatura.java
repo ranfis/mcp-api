@@ -2,7 +2,9 @@
 package com.mcp.mycareerplan.api.university;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PensumAsignatura {
 
     private String nombreasignatura;

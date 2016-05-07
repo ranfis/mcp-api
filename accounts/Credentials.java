@@ -1,5 +1,8 @@
 package com.mcp.mycareerplan.api.accounts;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Credentials{
     public String Usuario;
     public String clave;

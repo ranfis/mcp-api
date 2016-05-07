@@ -1,6 +1,8 @@
 package com.mcp.mycareerplan.api.accounts;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Account {
     private static final String LOG_TAG = Account.class.getSimpleName();
     private int IdTipoUsuario;

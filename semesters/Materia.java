@@ -1,8 +1,11 @@
 package com.mcp.mycareerplan.api.semesters;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Created by LuisMartinez on 04/29/16.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Materia {
 
 
