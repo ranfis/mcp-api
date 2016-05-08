@@ -1,6 +1,10 @@
 package com.mcp.mycareerplan.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.mcp.mycareerplan.api.accounts.Datos;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Responds {
@@ -8,7 +12,7 @@ public class Responds {
     private Integer codigo;
     private String resultado;
     private String mensaje;
-    private String datos;
+    private List<Datos> datos = new ArrayList<Datos>();
 
     /**
      *
@@ -69,7 +73,7 @@ public class Responds {
      * @return
      * The datos
      */
-    public String getDatos() {
+    public List<Datos> getDatos() {
         return datos;
     }
 
@@ -78,7 +82,7 @@ public class Responds {
      * @param datos
      * The datos
      */
-    public void setDatos(String datos) {
+    public void setDatos(List<Datos> datos) {
         this.datos = datos;
     }
 

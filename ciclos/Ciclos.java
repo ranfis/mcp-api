@@ -12,8 +12,12 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
+import com.mcp.mycareerplan.App;
 import com.mcp.mycareerplan.R;
+import com.mcp.mycareerplan.api.Request;
+import com.mcp.mycareerplan.api.RequestCiclos;
 import com.mcp.mycareerplan.api.WS;
+import com.mcp.mycareerplan.api.accounts.Datos;
 import com.mcp.mycareerplan.api.university.Universidad;
 import com.mcp.mycareerplan.fragments.FgmMisMateriasHome;
 import com.mcp.mycareerplan.fragments.FgmSelectionHome;
@@ -64,18 +68,24 @@ public class Ciclos extends AsyncTask<Void, Void, HttpResponse<String>> {
     protected void onPostExecute(HttpResponse<String> resultResponse) {
         Log.d(LOG_TAG, "onPostExecute()");
         try {
-            listaCiclos = convertIntoClass(resultResponse.getBody());
-            FragmentTransaction frgTransaction = activity.getFragmentManager().beginTransaction();
-            fmgMisMateriasHome = FgmMisMateriasHome.newInstance(listaCiclos);
-            frgTransaction.addToBackStack("Mis Materias - Ciclos");
-            frgTransaction.replace(R.id.homeContent, fmgMisMateriasHome);
-            frgTransaction.commit();
+            RequestCiclos req = convertToObject(resultResponse.getBody());
+            if (req.getResponds().getCodigo() == 200) {
+                listaCiclos = req.getResponds().getCiclos();
+                FragmentTransaction frgTransaction = activity.getFragmentManager().beginTransaction();
+                fmgMisMateriasHome = FgmMisMateriasHome.newInstance(listaCiclos);
+                frgTransaction.addToBackStack("Mis Materias - Ciclos");
+                frgTransaction.replace(R.id.homeContent, fmgMisMateriasHome);
+                frgTransaction.commit();
+            }
+
             if ((dialog != null) && dialog.isShowing()) {
                 dialog.dismiss();
                 dialog = null;
             }
+
         } catch (Exception ex) {
             Log.e(LOG_TAG, "Algo malo paso");
+            ex.printStackTrace();
         }
     }
 
@@ -99,12 +109,32 @@ public class Ciclos extends AsyncTask<Void, Void, HttpResponse<String>> {
     protected HttpResponse<String> doInBackground(Void... v) {
         Log.d(LOG_TAG, "doInBackground()");
         HttpResponse<String> response = null;
+        ObjectMapper mapper = new ObjectMapper();
         try {
-            response = Unirest.get(WS.buildUrl("/Ciclos"))
+            response = Unirest.post(WS.buildSimpleUrl("/AsignaturasPorBloquesPorIdPensum"))
+                    .header("content-type", "application/json")
+                    .body(mapper.writeValueAsString(App.currentUser))
                     .asString();
             Log.d(LOG_TAG, "doInBackground()/response/"+response.toString());
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        return response;
+    }
+
+
+    public static RequestCiclos convertToObject(String content) {
+        ObjectMapper mapper = new ObjectMapper();
+        RequestCiclos response = null;
+        try{
+            response = mapper.readValue(content, RequestCiclos.class);
+        } catch (JsonParseException e) {
+            Log.e("JSONPARSE", e.getMessage());
+        } catch (JsonMappingException e) {
+            Log.e("JSONMAP", e.getMessage());
+        } catch (IOException e) {
+            Log.e("IOEX", e.getMessage());
         }
         return response;
     }

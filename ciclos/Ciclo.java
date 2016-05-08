@@ -11,6 +11,8 @@ public class Ciclo {
 
     private Integer Bloque;
     private String BloqueNombre;
+    private Integer costo;
+    private Integer totalCreditosBloque;
     private List<Asignatura> Asignaturas = new ArrayList<Asignatura>();
 
     /**
@@ -22,12 +24,30 @@ public class Ciclo {
         return Bloque;
     }
 
+    public Integer getTotalCreditosBloque() {
+        return totalCreditosBloque;
+    }
+
+    @JsonProperty("totalCreditosBloque")
+    public void setTotalCreditosBloque(Integer totalCreditosBloque) {
+        this.totalCreditosBloque = totalCreditosBloque;
+    }
+
+    public Integer getCosto() {
+        return costo;
+    }
+
+    @JsonProperty("costo")
+    public void setCosto(Integer costo) {
+        this.costo = costo;
+    }
+
     /**
      * 
      * @param Bloque
      *     The Bloque
      */
-    @JsonProperty("Bloque")
+    @JsonProperty("bloque")
     public void setBloque(Integer Bloque) {
         this.Bloque = Bloque;
     }
@@ -46,7 +66,7 @@ public class Ciclo {
      * @param BloqueNombre
      *     The BloqueNombre
      */
-    @JsonProperty("BloqueNombre")
+    @JsonProperty("bloqueNombre")
     public void setBloqueNombre(String BloqueNombre) {
         this.BloqueNombre = BloqueNombre;
     }
@@ -65,7 +85,7 @@ public class Ciclo {
      * @param Asignaturas
      *     The Asignaturas
      */
-    @JsonProperty("Asignaturas")
+    @JsonProperty("asignaturas")
     public void setAsignaturas(List<Asignatura> Asignaturas) {
         this.Asignaturas = Asignaturas;
     }

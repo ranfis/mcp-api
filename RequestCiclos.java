@@ -5,14 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RequestCiclos {
 
-    private Responds responds;
+    private RespondsCiclos responds;
 
     /**
      *
      * @return
      * The responds
      */
-    public Responds getResponds() {
+    public RespondsCiclos getResponds() {
         return responds;
     }
 
@@ -21,7 +21,7 @@ public class RequestCiclos {
      * @param responds
      * The responds
      */
-    public void setResponds(Responds responds) {
+    public void setResponds(RespondsCiclos responds) {
         this.responds = responds;
     }
 

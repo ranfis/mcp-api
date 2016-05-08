@@ -1,7 +1,11 @@
 package com.mcp.mycareerplan.api.accounts;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -11,6 +15,7 @@ public class Userx {
 
     private String nombre;
     private String matricula;
+    private Integer idUniversidad;
     private String apellidos;
     private String correo;
     private String fechanacimiento;
@@ -18,9 +23,14 @@ public class Userx {
     private String usuario;
     private String token;
     private Object sexo;
+    private Integer idPensum;
     private Integer pais;
+    private Integer idUsuario;
+    private Integer idEstudiante;
     private String url;
     private Object imagen;
+    private List<Asignaturasestudiante> asignaturasestudiante = new ArrayList<Asignaturasestudiante>();
+
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
@@ -28,6 +38,49 @@ public class Userx {
      */
     public String getNombre() {
         return nombre;
+    }
+
+    public Integer getIdUniversidad() {
+        return idUniversidad;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+    @JsonProperty("idUsuario")
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Integer getIdEstudiante() {
+        return idEstudiante;
+    }
+    @JsonProperty("idEstudiante")
+    public void setIdEstudiante(Integer idEstudiante) {
+        this.idEstudiante = idEstudiante;
+    }
+
+    @JsonIgnore
+    public List<Asignaturasestudiante> getAsignaturasestudiante() {
+        return asignaturasestudiante;
+    }
+
+    @JsonIgnore
+    public void setAsignaturasestudiante(List<Asignaturasestudiante> asignaturasestudiante) {
+        this.asignaturasestudiante = asignaturasestudiante;
+    }
+
+    public void setIdUniversidad(Integer idUniversidad) {
+        this.idUniversidad = idUniversidad;
+    }
+
+
+    public Integer getIdPensum() {
+        return idPensum;
+    }
+
+    public void setIdPensum(Integer idPensum) {
+        this.idPensum = idPensum;
     }
 
     /**

@@ -1,7 +1,9 @@
 package com.mcp.mycareerplan.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mcp.mycareerplan.api.accounts.Datos;
+import com.mcp.mycareerplan.api.ciclos.Ciclo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,7 @@ public class RespondsCiclos {
     private Integer codigo;
     private String resultado;
     private String mensaje;
-    private List<Datos> datos = new ArrayList<Datos>();
+    private List<Ciclo> ciclos = new ArrayList<Ciclo>();
 
     /**
      *
@@ -73,17 +75,19 @@ public class RespondsCiclos {
      * @return
      * The datos
      */
-    public List<Datos> getDatos() {
-        return datos;
+    @JsonProperty("datos")
+    public List<Ciclo> getCiclos() {
+        return ciclos;
     }
 
     /**
      *
-     * @param datos
+     * @param ciclos
      * The datos
      */
-    public void setDatos(List<Datos> datos) {
-        this.datos = datos;
+    @JsonProperty("datos")
+    public void setDatos(List<Ciclo> ciclos) {
+        this.ciclos = ciclos;
     }
 
 

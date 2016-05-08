@@ -67,8 +67,8 @@ public class Login extends AsyncTask<Void, Void, HttpResponse<String>> {
         try {
             Request req = App.convertToObject(resultResponse.getBody());
             if (req.getResponds().getCodigo() == 200) {
-                Log.d(LOG_TAG, req.getResponds().getDatos().replace("[", "").replace("]", ""));
-                App.currentUser = convertUserToObject(req.getResponds().getDatos().replace("[", "").replace("]", ""));
+                Datos temp = req.getResponds().getDatos().get(0);
+                App.currentUser = convertDatosToUser(temp);
                 App.currentUser.setFechanacimiento(App.currentUser.getFechanacimiento().substring(0, 10));
                 App.currentUser.setNombre(App.capitalize(App.currentUser.getNombre()));
                 App.currentUser.setApellidos(App.capitalize(App.currentUser.getApellidos()));
@@ -88,19 +88,25 @@ public class Login extends AsyncTask<Void, Void, HttpResponse<String>> {
     }
 
 
-    public static Userx convertUserToObject(String content) {
-        Log.d(LOG_TAG, "convertUserToObject():"+content);
-        ObjectMapper mapper = new ObjectMapper();
-        Userx response = null;
-        try {
-            response = mapper.readValue(content, Userx.class);
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static Userx convertDatosToUser(Datos content) {
+        Log.d(LOG_TAG, "convertUserToObject():" + content);
+        Userx response = new Userx();
+        response.setNombre(content.getNombre());
+//        response.setPais(content.getPais());
+        response.setFechanacimiento(content.getFechanacimiento());
+        response.setApellidos(content.getApellidos());
+        response.setCorreo(content.getCorreo());
+        response.setIdEstatus(content.getIdEstatus());
+        response.setToken(content.getToken());
+        response.setImagen(content.getImagen());
+        response.setSexo(content.getSexo());
+        response.setUsuario(content.getUsuario());
+        response.setIdEstudiante(content.getIdEstudiante());
+        response.setIdPensum(content.getIdPensum());
+        response.setUrl((String) content.getUrl());
+        response.setIdUniversidad(content.getIdUniversidad());
+        response.setAsignaturasestudiante(content.getAsignaturasestudiante());
+
         return response;
     }
 
@@ -114,7 +120,7 @@ public class Login extends AsyncTask<Void, Void, HttpResponse<String>> {
                     .header("content-type", "application/json")
                     .body(mapper.writeValueAsString(credentials))
                     .asString();
-            Log.d(LOG_TAG, "doInBackground()/response/"+response.toString());
+            Log.d(LOG_TAG, "doInBackground()/response/" + response.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

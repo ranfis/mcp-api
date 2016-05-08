@@ -2,6 +2,7 @@ package com.mcp.mycareerplan.api.accounts;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Map;
 
@@ -15,12 +16,15 @@ public class User {
     private String Clave;
     private String url;
     private Object imagen;
+    private Integer idPensum;
     private String Nombres;
     private String Apellidos;
     private String Correo;
     private String FechaNacimiento;
     private Integer IdEstatus;
     private Integer IdPais;
+    private Integer idUsuario;
+    private Integer idEstudiante;
     private String Sexo;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -29,6 +33,30 @@ public class User {
      */
     public Integer getIdTipoUsuario() {
         return IdTipoUsuario;
+    }
+
+    public Integer getIdPensum() {
+        return idPensum;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+    @JsonProperty("idUsuario")
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Integer getIdEstudiante() {
+        return idEstudiante;
+    }
+    @JsonProperty("idEstudiante")
+    public void setIdEstudiante(Integer idEstudiante) {
+        this.idEstudiante = idEstudiante;
+    }
+
+    public void setIdPensum(Integer idPensum) {
+        this.idPensum = idPensum;
     }
 
     /**
