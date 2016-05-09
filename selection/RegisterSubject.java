@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
@@ -26,13 +27,14 @@ public class RegisterSubject extends AsyncTask<Void, Void, HttpResponse<String>>
         this.seleccionAsignatura = seleccionAsignatura;
         dialog = new ProgressDialog(activity);
         dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
         this.activity = activity;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        dialog.setMessage(activity.getResources().getString(R.string.loading));
+        dialog.setMessage(activity.getResources().getString(R.string.loading_register_subject));
         dialog.show();
     }
 
@@ -59,16 +61,21 @@ public class RegisterSubject extends AsyncTask<Void, Void, HttpResponse<String>>
     protected void onPostExecute(HttpResponse<String> resultResponse) {
         Request req = App.convertToObject(resultResponse.getBody());
         if (req.getResponds().getCodigo() == 200) {
+            App.currentUser.setIdPensum(seleccionAsignatura.getIdPensum());
+            App.currentUser.setIdUniversidad(seleccionAsignatura.getIdUniversidad());
+            App.updateSession(App.currentUser);
             dialog.dismiss();
             activity.finish();
             //SUCCESS
             activity.onSuccess();
         } else {
-            if ((dialog != null) && dialog.isShowing()) {
-                dialog.dismiss();
-                dialog = null;
-            }
+
+            Toast.makeText(activity, "Hemos encontrado un error, intentar más tarde", Toast.LENGTH_SHORT).show();
             //FAILED
+        }
+        if ((dialog != null) && dialog.isShowing()) {
+            dialog.dismiss();
+            dialog = null;
         }
     }
 

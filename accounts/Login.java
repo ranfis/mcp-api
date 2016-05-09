@@ -31,6 +31,7 @@ public class Login extends AsyncTask<Void, Void, HttpResponse<String>> {
         credentials = new Credentials(user, password);
         dialog = new ProgressDialog(activity);
         dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
         this.activity = activity;
     }
 
@@ -76,14 +77,15 @@ public class Login extends AsyncTask<Void, Void, HttpResponse<String>> {
                 dialog.dismiss();
                 activity.finish();
             } else {
-                if ((dialog != null) && dialog.isShowing()) {
-                    dialog.dismiss();
-                    dialog = null;
-                }
                 activity.onLoginFailed();
             }
         } catch (Exception ex) {
             Log.e(LOG_TAG, "Algo paso :s");
+        }
+
+        if ((dialog != null) && dialog.isShowing()) {
+            dialog.dismiss();
+            dialog = null;
         }
     }
 

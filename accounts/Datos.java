@@ -36,6 +36,7 @@ public class Datos {
     public Integer getIdPensum() {
         return idPensum;
     }
+
     @JsonProperty("idPensum")
     public void setIdPensum(Integer idPensum) {
         this.idPensum = idPensum;

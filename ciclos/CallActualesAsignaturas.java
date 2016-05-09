@@ -13,29 +13,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mcp.mycareerplan.App;
+import com.mcp.mycareerplan.BuildConfig;
 import com.mcp.mycareerplan.R;
-import com.mcp.mycareerplan.api.Request;
-import com.mcp.mycareerplan.api.RequestCiclos;
+import com.mcp.mycareerplan.api.RequestMateriasActuales;
+import com.mcp.mycareerplan.api.RequestMiPlan;
 import com.mcp.mycareerplan.api.WS;
-import com.mcp.mycareerplan.api.accounts.Datos;
-import com.mcp.mycareerplan.api.university.Universidad;
-import com.mcp.mycareerplan.fragments.FgmMisMateriasHome;
-import com.mcp.mycareerplan.fragments.FgmSelectionHome;
+import com.mcp.mycareerplan.fragments.FgmMateriasList;
 
 import java.io.IOException;
 import java.util.List;
 
 
-
-public class Ciclos extends AsyncTask<Void, Void, HttpResponse<String>> {
-    private static final String LOG_TAG = Ciclos.class.getSimpleName();
+public class CallActualesAsignaturas extends AsyncTask<Void, Void, HttpResponse<String>> {
+    private static final String LOG_TAG = CallActualesAsignaturas.class.getSimpleName();
     private ProgressDialog dialog;
     private Activity activity;
-    private List<Ciclo> listaCiclos;
-    FgmMisMateriasHome fmgMisMateriasHome;
+    private List<Asignatura> listaAsignaturas;
+    FgmMateriasList fgmMateriasActuales;
 
 
-    public Ciclos(Activity activity) {
+
+    public CallActualesAsignaturas(Activity activity) {
         Log.d(LOG_TAG, "Selection");
         dialog = new ProgressDialog(activity);
         dialog.setCanceledOnTouchOutside(false);
@@ -43,8 +41,8 @@ public class Ciclos extends AsyncTask<Void, Void, HttpResponse<String>> {
         this.activity = activity;
     }
 
-    public List<Ciclo> getCiclos() {
-        return this.listaCiclos;
+    public List<Asignatura> getCiclos() {
+        return this.listaAsignaturas;
     }
 
 
@@ -68,34 +66,36 @@ public class Ciclos extends AsyncTask<Void, Void, HttpResponse<String>> {
     @Override
     protected void onPostExecute(HttpResponse<String> resultResponse) {
         Log.d(LOG_TAG, "onPostExecute()");
-        try {
-            RequestCiclos req = convertToObject(resultResponse.getBody());
-            if (req.getResponds().getCodigo() == 200) {
-                listaCiclos = req.getResponds().getCiclos();
-                FragmentTransaction frgTransaction = activity.getFragmentManager().beginTransaction();
-                fmgMisMateriasHome = FgmMisMateriasHome.newInstance(listaCiclos);
-                frgTransaction.addToBackStack("Mis Materias - Ciclos");
-                frgTransaction.replace(R.id.homeContent, fmgMisMateriasHome);
-                frgTransaction.commit();
-            }
-        } catch (Exception ex) {
-            Log.e(LOG_TAG, "Algo malo paso");
-            ex.printStackTrace();
-        }
+            try {
+                RequestMateriasActuales req = convertToObject(resultResponse.getBody());
+                if (req.getResponds().getCodigo() == 200) {
+                    listaAsignaturas = req.getResponds().getAsignaturas();
+                    FragmentTransaction frgTransaction = activity.getFragmentManager().beginTransaction();
+                    fgmMateriasActuales  = FgmMateriasList.newInstance(listaAsignaturas);
+                    frgTransaction.addToBackStack("Actuales Asignaturas");
+                    frgTransaction.replace(R.id.homeContent, fgmMateriasActuales);
+                    frgTransaction.commit();
 
+                }
+
+            } catch (Exception ex) {
+                Log.e(LOG_TAG, "Algo malo paso");
+                ex.printStackTrace();
+            }
 
         if ((dialog != null) && dialog.isShowing()) {
             dialog.dismiss();
             dialog = null;
         }
+
     }
 
-    public List<Ciclo> convertIntoClass(String content) {
-        Log.d(LOG_TAG, "convertUserToObject():"+content);
+    public List<Asignatura> convertIntoClass(String content) {
+        Log.d(LOG_TAG, "convertUserToObject():" + content);
         ObjectMapper mapper = new ObjectMapper();
-        List<Ciclo> response = null;
+        List<Asignatura> response = null;
         try {
-            response = mapper.readValue(content, new TypeReference<List<Ciclo>>() {});
+            response = mapper.readValue(content, new TypeReference<List<Asignatura>>() {});
         } catch (JsonParseException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
@@ -111,8 +111,12 @@ public class Ciclos extends AsyncTask<Void, Void, HttpResponse<String>> {
         Log.d(LOG_TAG, "doInBackground()");
         HttpResponse<String> response = null;
         ObjectMapper mapper = new ObjectMapper();
+
+        if (BuildConfig.DEBUG) {
+            App.currentUser.setIdEstudiante(9);
+        }
         try {
-            response = Unirest.post(WS.buildSimpleUrl("/AsignaturasPorBloquesPorIdPensum"))
+            response = Unirest.post(WS.buildSimpleUrl("/AsignaturasEnCurso"))
                     .header("content-type", "application/json")
                     .body(mapper.writeValueAsString(App.currentUser))
                     .asString();
@@ -125,11 +129,11 @@ public class Ciclos extends AsyncTask<Void, Void, HttpResponse<String>> {
     }
 
 
-    public static RequestCiclos convertToObject(String content) {
+    public static RequestMateriasActuales convertToObject(String content) {
         ObjectMapper mapper = new ObjectMapper();
-        RequestCiclos response = null;
+        RequestMateriasActuales response = null;
         try{
-            response = mapper.readValue(content, RequestCiclos.class);
+            response = mapper.readValue(content, RequestMateriasActuales.class);
         } catch (JsonParseException e) {
             Log.e("JSONPARSE", e.getMessage());
         } catch (JsonMappingException e) {

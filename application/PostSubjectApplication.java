@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
@@ -23,6 +24,7 @@ public class PostSubjectApplication extends AsyncTask<Void, Void, HttpResponse<S
         this.notificacion = notificacion;
         dialog = new ProgressDialog(activity);
         dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
         this.activity = activity;
     }
 
@@ -54,19 +56,13 @@ public class PostSubjectApplication extends AsyncTask<Void, Void, HttpResponse<S
 
     @Override
     protected void onPostExecute(HttpResponse<String> resultResponse) {
-        Request req = App.convertToObject(resultResponse.getBody());
-        if (req.getResponds().getCodigo() == 200) {
+
+        if ((dialog != null) && dialog.isShowing()) {
             dialog.dismiss();
-            activity.finish();
-            //SUCCESS
-//            activity.onSuccess();
-        } else {
-            if ((dialog != null) && dialog.isShowing()) {
-                dialog.dismiss();
-                dialog = null;
-            }
-            //FAILED
+            dialog = null;
         }
+
+        Toast.makeText(activity, "¡Notificación enviada!", Toast.LENGTH_SHORT).show();
     }
 
 

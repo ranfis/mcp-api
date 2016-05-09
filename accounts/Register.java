@@ -23,6 +23,7 @@ public class Register extends AsyncTask<Void, Void, HttpResponse<String>> {
         this.user = user;
         dialog = new ProgressDialog(activity);
         dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
         this.activity = activity;
     }
 

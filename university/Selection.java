@@ -35,6 +35,7 @@ public class Selection extends AsyncTask<Void, Void, HttpResponse<String>> {
         Log.d(LOG_TAG, "Selection");
         dialog = new ProgressDialog(activity);
         dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
         this.activity = activity;
     }
 
@@ -70,12 +71,13 @@ public class Selection extends AsyncTask<Void, Void, HttpResponse<String>> {
             frgTransaction.addToBackStack("Selection University");
             frgTransaction.add(R.id.selectionHome, fmgSelectionHome);
             frgTransaction.commit();
-            if ((dialog != null) && dialog.isShowing()) {
-                dialog.dismiss();
-                dialog = null;
-            }
         } catch (Exception ex) {
             Log.e(LOG_TAG, "Algo malo paso");
+        }
+
+        if ((dialog != null) && dialog.isShowing()) {
+            dialog.dismiss();
+            dialog = null;
         }
     }
 

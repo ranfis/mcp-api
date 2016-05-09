@@ -39,6 +39,7 @@ public class CallMiPlan extends AsyncTask<Void, Void, HttpResponse<String>> {
         Log.d(LOG_TAG, "Selection");
         dialog = new ProgressDialog(activity);
         dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
         this.activity = activity;
     }
 
@@ -51,7 +52,7 @@ public class CallMiPlan extends AsyncTask<Void, Void, HttpResponse<String>> {
     protected void onPreExecute() {
         Log.d(LOG_TAG, "onPreExecute()");
         super.onPreExecute();
-        dialog.setMessage(activity.getResources().getString(R.string.loading));
+        dialog.setMessage(activity.getResources().getString(R.string.loading_miplan));
         dialog.show();
     }
 
@@ -82,7 +83,7 @@ public class CallMiPlan extends AsyncTask<Void, Void, HttpResponse<String>> {
                 Log.e(LOG_TAG, "Algo malo paso");
                 ex.printStackTrace();
             }
-        
+
         if ((dialog != null) && dialog.isShowing()) {
             dialog.dismiss();
             dialog = null;
@@ -112,9 +113,6 @@ public class CallMiPlan extends AsyncTask<Void, Void, HttpResponse<String>> {
         HttpResponse<String> response = null;
         ObjectMapper mapper = new ObjectMapper();
 
-        if (BuildConfig.DEBUG) {
-            App.currentUser.setIdEstudiante(9);
-        }
         try {
             response = Unirest.post(WS.buildSimpleUrl("/MiPlan"))
                     .header("content-type", "application/json")
