@@ -3,6 +3,7 @@ package com.mcp.mycareerplan.api.accounts;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -81,6 +82,7 @@ public class Login extends AsyncTask<Void, Void, HttpResponse<String>> {
             }
         } catch (Exception ex) {
             Log.e(LOG_TAG, "Algo paso :s");
+            Toast.makeText(activity, "Hemos encontrado un error, favor intentar de nuevo.", Toast.LENGTH_SHORT).show();
         }
 
         if ((dialog != null) && dialog.isShowing()) {

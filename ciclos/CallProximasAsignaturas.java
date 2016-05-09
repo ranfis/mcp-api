@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -81,6 +82,8 @@ public class CallProximasAsignaturas extends AsyncTask<Void, Void, HttpResponse<
             } catch (Exception ex) {
                 Log.e(LOG_TAG, "Algo malo paso");
                 ex.printStackTrace();
+                Toast.makeText(activity, "Hemos encontrado un error, favor intentar de nuevo.", Toast.LENGTH_SHORT).show();
+
             }
 
         if ((dialog != null) && dialog.isShowing()) {
