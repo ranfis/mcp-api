@@ -11,6 +11,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Asignatura {
 
+
     private String nombreasignatura;
     private Integer idAsignatura;
     private Object descripcion;
@@ -28,6 +29,7 @@ public class Asignatura {
     private String literalNumAsignatura;
     private Integer calificacionAsignatura;
     private List<Prerrequisito> prerrequisitos = new ArrayList<Prerrequisito>();
+
 
 
     public Integer getCreditos() {

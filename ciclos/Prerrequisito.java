@@ -1,6 +1,7 @@
 package com.mcp.mycareerplan.api.ciclos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
  * Created by LuisMartinez on 05/07/16.
@@ -25,8 +26,13 @@ public class Prerrequisito {
      * @param IdPredecesora
      * The IdPredecesora
      */
-    @JsonProperty("IdPredecesora")
+    @JsonSetter("IdPredecesora")
     public void setIdPredecesora(Integer IdPredecesora) {
+        this.IdPredecesora = IdPredecesora;
+    }
+
+    @JsonSetter("idPredecesora")
+    public void setIdPredecesoraV2(Integer IdPredecesora) {
         this.IdPredecesora = IdPredecesora;
     }
 
@@ -63,8 +69,13 @@ public class Prerrequisito {
      * @param NombrePredecesoraPr
      * The NombrePredecesoraPr
      */
-    @JsonProperty("NombrePredecesoraPr")
+    @JsonSetter("NombrePredecesoraPr")
     public void setNombrePredecesoraPr(String NombrePredecesoraPr) {
+        this.NombrePredecesoraPr = NombrePredecesoraPr;
+    }
+
+    @JsonSetter("nombrePredecesoraPr")
+    public void setNombrePredecesoraPrV2(String NombrePredecesoraPr) {
         this.NombrePredecesoraPr = NombrePredecesoraPr;
     }
 
